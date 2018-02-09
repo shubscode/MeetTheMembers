@@ -60,6 +60,10 @@ class ViewController: UIViewController {
         self.performSegue(withIdentifier: "toGame", sender: self)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = true;
+    }
+    
     func animateBackgroundColour () {
         if backgroundLoop < backgroundColours.count - 1 {
             backgroundLoop += 1

@@ -38,6 +38,7 @@ class GameScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        responses = [" ", " ", " "]
         timerLabel = UILabel(frame: CGRect(x: view.frame.width - 170, y:680, width: 150, height: 40))
         
         view.addSubview(timerLabel)
@@ -56,25 +57,25 @@ class GameScreenViewController: UIViewController {
         view.addSubview(stopButton)
         
         topLeftButton = UIButton(frame: CGRect(x: 20, y:480, width:view.frame.midX - 30, height: 80))
-        topLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 25)
+        topLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
         topLeftButton.backgroundColor = UIColor.blue
         topLeftButton.addTarget(self, action: #selector(checkAnswerButtonA), for: .touchUpInside)
         view.addSubview(topLeftButton)
         
         topRightButton = UIButton(frame: CGRect(x: view.frame.midX + 10, y:480, width:view.frame.midX - 30, height: 80))
-        topRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 25)
+        topRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
         topRightButton.backgroundColor = UIColor.blue
         topRightButton.addTarget(self, action: #selector(checkAnswerButtonB), for: .touchUpInside)
         view.addSubview(topRightButton)
         
         bottomLeftButton = UIButton(frame: CGRect(x: 20, y:580, width:view.frame.midX - 30, height: 80))
-        bottomLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 25)
+        bottomLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
         bottomLeftButton.backgroundColor = UIColor.blue
         bottomLeftButton.addTarget(self, action: #selector(checkAnswerButtonC), for: .touchUpInside)
         view.addSubview(bottomLeftButton)
         
         bottomRightButton = UIButton(frame: CGRect(x: view.frame.midX + 10, y:580, width:view.frame.midX - 30, height: 80))
-        bottomRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 25)
+        bottomRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
         bottomRightButton.addTarget(self, action: #selector(checkAnswerButtonD), for: .touchUpInside)
         view.addSubview(bottomRightButton)
         
@@ -151,9 +152,11 @@ class GameScreenViewController: UIViewController {
             responses.append("Inorrect")
         }
         timer.invalidate()
+        self.view.isUserInteractionEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             self.resetTimer()
             self.setup()
+            self.view.isUserInteractionEnabled = true
         })
 
     }
@@ -170,8 +173,10 @@ class GameScreenViewController: UIViewController {
             responses.append("Incorrect")
         }
         timer.invalidate()
+        self.view.isUserInteractionEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             self.resetTimer()
+            self.view.isUserInteractionEnabled = true
             self.setup()
         })
     }
@@ -188,7 +193,9 @@ class GameScreenViewController: UIViewController {
             responses.append("Incorrect")
         }
         timer.invalidate()
+        self.view.isUserInteractionEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            self.view.isUserInteractionEnabled = true
             self.resetTimer()
             self.setup()
         })
@@ -205,9 +212,11 @@ class GameScreenViewController: UIViewController {
             bottomRightButton.backgroundColor = .red
             responses.append("Incorrect")
         }
+        self.view.isUserInteractionEnabled = false
         timer.invalidate()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             self.resetTimer()
+            self.view.isUserInteractionEnabled = true
             self.setup()
         })
     }
@@ -235,9 +244,11 @@ class GameScreenViewController: UIViewController {
         timer.invalidate()
         self.performSegue(withIdentifier: "toStats", sender: self)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.isNavigationBarHidden = false;
+    }
 
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
