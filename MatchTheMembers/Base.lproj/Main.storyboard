@@ -42,9 +42,11 @@
                     <navigationItem key="navigationItem" id="nGa-WL-f8i"/>
                     <connections>
                         <segue destination="fA3-Ct-wib" kind="show" identifier="toStats" id="uIh-wq-PCN"/>
+                        <segue destination="rDE-Gr-Xl0" kind="unwind" identifier="unwindToStart" unwindAction="unwindToVC1WithSegue:" id="0cP-Iz-PNI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jlp-O6-KdT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="rDE-Gr-Xl0" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2028" y="142.57871064467767"/>
         </scene>

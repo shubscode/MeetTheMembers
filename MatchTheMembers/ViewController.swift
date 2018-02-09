@@ -27,10 +27,11 @@ class ViewController: UIViewController {
         openingImageView.frame = CGRect(x:view.frame.midX - 150, y:170, width: 300, height: 220)
         view.addSubview(openingImageView)
 
-        openingLabel = UILabel(frame: CGRect(x:20, y:100, width: view.frame.width - 10, height: 50))
+        openingLabel = UILabel(frame: CGRect(x:20, y:100, width: view.frame.width - 40, height: 50))
         openingLabel.text = "Match the Members"
         openingLabel.textColor = .white
-        openingLabel.font = openingLabel.font.withSize(30)
+        //openingLabel.font = openingLabel.font.withSize(35)
+        openingLabel.font = UIFont (name: "HoeflerText-BlackItalic", size: 35)
         openingLabel.textAlignment = .center
         openingLabel.lineBreakMode = .byWordWrapping
         openingLabel.numberOfLines = 3
@@ -38,7 +39,7 @@ class ViewController: UIViewController {
         
         gameStartButton = UIButton(frame: CGRect(x: view.frame.midX - 100, y:420, width:200, height: 60))
         gameStartButton.setTitle("Lets Go!", for: .normal)
-        gameStartButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 30)
+        gameStartButton.titleLabel?.font = UIFont (name: "HoeflerText-Black", size: 30)
         gameStartButton.addTarget(self, action: #selector(segue), for: .touchUpInside)
         view.addSubview(gameStartButton)
         
@@ -59,6 +60,7 @@ class ViewController: UIViewController {
     @objc func segue() {
         self.performSegue(withIdentifier: "toGame", sender: self)
     }
+    @IBAction func unwindToVC1(segue:UIStoryboardSegue) { }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = true;

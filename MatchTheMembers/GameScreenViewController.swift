@@ -39,47 +39,49 @@ class GameScreenViewController: UIViewController {
         super.viewDidLoad()
         
         responses = [" ", " ", " "]
-        timerLabel = UILabel(frame: CGRect(x: view.frame.width - 170, y:680, width: 150, height: 40))
+        timerLabel = UILabel(frame: CGRect(x: view.frame.width - 170, y:610, width: 150, height: 40))
         
         view.addSubview(timerLabel)
         
-        let btn1 = UIButton(type: .custom)
-        btn1.setImage(UIImage(named: "statslogo"), for: .normal)
+        let stats = UIButton(type: .custom)
+        stats.setImage(UIImage(named: "statslogo"), for: .normal)
         //btn1.setTitle("Stats", for: .normal)
-        btn1.frame = CGRect(x: view.frame.width - 50, y: 0, width: 30, height: 20)
-        btn1.addTarget(self, action: #selector(segueToStats), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: btn1)
+        stats.frame = CGRect(x: view.frame.width - 50, y: 0, width: 30, height: 20)
+        stats.addTarget(self, action: #selector(segueToStats), for: .touchUpInside)
+        let item1 = UIBarButtonItem(customView: stats)
         self.navigationItem.setRightBarButtonItems([item1], animated: true)
         
-        stopButton = UIButton(frame: CGRect(x: view.frame.midX - 50, y:420, width:100, height: 60))
+        stopButton = UIButton(frame: CGRect(x: view.frame.midX - 50, y:370, width:100, height: 60))
         stopButton.setTitle("STOP!", for: .normal)
-        stopButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 25)
+        stopButton.titleLabel?.textAlignment = .center
+        stopButton.addTarget(self, action: #selector(unwindToMainScreen), for: .touchUpInside)
+        stopButton.titleLabel?.font = UIFont (name: "HoeflerText-Black", size: 25)
         view.addSubview(stopButton)
         
-        topLeftButton = UIButton(frame: CGRect(x: 20, y:480, width:view.frame.midX - 30, height: 80))
+        topLeftButton = UIButton(frame: CGRect(x: 20, y:430, width:view.frame.midX - 30, height: 70))
         topLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
         topLeftButton.backgroundColor = UIColor.blue
         topLeftButton.addTarget(self, action: #selector(checkAnswerButtonA), for: .touchUpInside)
         view.addSubview(topLeftButton)
         
-        topRightButton = UIButton(frame: CGRect(x: view.frame.midX + 10, y:480, width:view.frame.midX - 30, height: 80))
+        topRightButton = UIButton(frame: CGRect(x: view.frame.midX + 10, y:430, width:view.frame.midX - 30, height: 70))
         topRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
         topRightButton.backgroundColor = UIColor.blue
         topRightButton.addTarget(self, action: #selector(checkAnswerButtonB), for: .touchUpInside)
         view.addSubview(topRightButton)
         
-        bottomLeftButton = UIButton(frame: CGRect(x: 20, y:580, width:view.frame.midX - 30, height: 80))
+        bottomLeftButton = UIButton(frame: CGRect(x: 20, y:520, width:view.frame.midX - 30, height: 70))
         bottomLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
         bottomLeftButton.backgroundColor = UIColor.blue
         bottomLeftButton.addTarget(self, action: #selector(checkAnswerButtonC), for: .touchUpInside)
         view.addSubview(bottomLeftButton)
         
-        bottomRightButton = UIButton(frame: CGRect(x: view.frame.midX + 10, y:580, width:view.frame.midX - 30, height: 80))
+        bottomRightButton = UIButton(frame: CGRect(x: view.frame.midX + 10, y:520, width:view.frame.midX - 30, height: 70))
         bottomRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
         bottomRightButton.addTarget(self, action: #selector(checkAnswerButtonD), for: .touchUpInside)
         view.addSubview(bottomRightButton)
         
-        scoreLabel = UILabel(frame: CGRect(x: 20, y:680, width: 100, height: 40))
+        scoreLabel = UILabel(frame: CGRect(x: 20, y:610, width: 100, height: 40))
         scoreLabel.text = "Score: \(score)"
         scoreLabel.font =  UIFont (name: "HelveticaNeue-Thin", size: 20)
         view.addSubview(scoreLabel)
@@ -102,7 +104,7 @@ class GameScreenViewController: UIViewController {
         
         print("answer is \(answer)")
         memberPictureView = findImages(name: answer)
-        memberPictureView.frame = CGRect(x:20, y:60, width: view.frame.width - 40, height: 360)
+        memberPictureView.frame = CGRect(x:20, y:60, width: view.frame.width - 40, height: 300)
         view.addSubview(memberPictureView)
         
         option1 = options[0]
@@ -120,7 +122,6 @@ class GameScreenViewController: UIViewController {
         bottomLeftButton.backgroundColor = UIColor.blue
         bottomRightButton.backgroundColor = UIColor.blue
 
-        runTimer()
     }
     
     func runTimer() {
@@ -225,6 +226,7 @@ class GameScreenViewController: UIViewController {
         timer.invalidate()
         seconds = 5    //Here we manually enter the restarting point for the seconds, but it would be wiser to make this a variable or constant.
         timerLabel.text = "Time Left: 0:0\(seconds)"
+        runTimer()
     }
     
     func animateBackgroundColour () {
@@ -245,8 +247,22 @@ class GameScreenViewController: UIViewController {
         self.performSegue(withIdentifier: "toStats", sender: self)
     }
     
+    @objc func unwindToMainScreen() {
+        timer.invalidate()
+        responses = ["", "", ""]
+        self.performSegue(withIdentifier: "unwindToStart", sender: self)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.isNavigationBarHidden = false;
+        runTimer();
+    }
+    
+
+    @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
+        
+        //code
+        
     }
 
     override func didReceiveMemoryWarning() {

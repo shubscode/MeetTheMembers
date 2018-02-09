@@ -22,35 +22,41 @@ class StatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        yourStats = UILabel(frame: CGRect(x: view.frame.midX - 155, y:80, width: view.frame.width, height: 75))
+        yourStats = UILabel(frame: CGRect(x: 10, y:80, width: view.frame.width - 20, height: 75))
         yourStats.text = "Your Stats"
-        yourStats.font =  UIFont (name: "HelveticaNeue-Thin", size: 75)
+        yourStats.textAlignment = .center
+        yourStats.font =  UIFont (name: "HoeflerText-Black", size: 60)
         view.addSubview(yourStats)
         
-        maxScoreLabel = UILabel(frame: CGRect(x: view.frame.midX - 130, y:180, width: view.frame.width, height: 50))
+        maxScoreLabel = UILabel(frame: CGRect(x: 30, y:180, width: view.frame.width - 60, height: 50))
         maxScoreLabel.text = "Max Score: \(scores.max()!)"
-        maxScoreLabel.font =  UIFont (name: "HelveticaNeue-Thin", size: 45)
+        maxScoreLabel.textAlignment = .center
+        maxScoreLabel.font =  UIFont (name: "HelveticaNeue", size: 40)
         view.addSubview(maxScoreLabel)
         
-        recentsLabel = UILabel(frame: CGRect(x: 20, y:250, width: view.frame.width, height: 50))
+        recentsLabel = UILabel(frame: CGRect(x: 30, y:250, width: view.frame.width - 60, height: 50))
         recentsLabel.text = "Last Three Answers: "
-        recentsLabel.font =  UIFont (name: "HelveticaNeue-Thin", size: 45)
+        recentsLabel.textAlignment = .center
+        recentsLabel.font =  UIFont (name: "HelveticaNeue", size: 30)
         view.addSubview(recentsLabel)
         
         var recents = lastThree()
         
-        firstRecent = UILabel(frame: CGRect(x: view.frame.midX - 75, y:310, width: 200, height: 40))
+        firstRecent = UILabel(frame: CGRect(x: 80, y:310, width: view.frame.width - 160, height: 40))
         firstRecent.text = "1. \(recents[0]) "
         firstRecent.font =  UIFont (name: "HelveticaNeue-Thin", size: 30)
+        //firstRecent.textAlignment = .center
         view.addSubview(firstRecent)
         
-        secondRecent = UILabel(frame: CGRect(x: view.frame.midX - 75, y: 360, width: 200, height: 40))
+        secondRecent = UILabel(frame: CGRect(x: 80, y: 360, width: view.frame.width - 160, height: 40))
         secondRecent.text = "2. \(recents[1]) "
         secondRecent.font =  UIFont (name: "HelveticaNeue-Thin", size: 30)
+        //secondRecent.textAlignment = .center
         view.addSubview(secondRecent)
         
-        thirdRecent = UILabel(frame: CGRect(x: view.frame.midX - 75, y:410, width: 200, height: 40))
+        thirdRecent = UILabel(frame: CGRect(x: 80, y:410, width: view.frame.width - 160, height: 40))
         thirdRecent.text = "3. \(recents[2]) "
+        //thirdRecent.textAlignment = .center
         thirdRecent.font =  UIFont (name: "HelveticaNeue-Thin", size: 30)
         view.addSubview(thirdRecent)
         
