@@ -59,25 +59,25 @@ class GameScreenViewController: UIViewController {
         view.addSubview(stopButton)
         
         topLeftButton = UIButton(frame: CGRect(x: 20, y:430, width:view.frame.midX - 30, height: 70))
-        topLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
+        topLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue", size: 17)
         topLeftButton.backgroundColor = UIColor.blue
         topLeftButton.addTarget(self, action: #selector(checkAnswerButtonA), for: .touchUpInside)
         view.addSubview(topLeftButton)
         
         topRightButton = UIButton(frame: CGRect(x: view.frame.midX + 10, y:430, width:view.frame.midX - 30, height: 70))
-        topRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
+        topRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue", size: 17)
         topRightButton.backgroundColor = UIColor.blue
         topRightButton.addTarget(self, action: #selector(checkAnswerButtonB), for: .touchUpInside)
         view.addSubview(topRightButton)
         
         bottomLeftButton = UIButton(frame: CGRect(x: 20, y:520, width:view.frame.midX - 30, height: 70))
-        bottomLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
+        bottomLeftButton.titleLabel?.font = UIFont (name: "HelveticaNeue", size: 17)
         bottomLeftButton.backgroundColor = UIColor.blue
         bottomLeftButton.addTarget(self, action: #selector(checkAnswerButtonC), for: .touchUpInside)
         view.addSubview(bottomLeftButton)
         
         bottomRightButton = UIButton(frame: CGRect(x: view.frame.midX + 10, y:520, width:view.frame.midX - 30, height: 70))
-        bottomRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue-Thin", size: 20)
+        bottomRightButton.titleLabel?.font = UIFont (name: "HelveticaNeue", size: 17)
         bottomRightButton.addTarget(self, action: #selector(checkAnswerButtonD), for: .touchUpInside)
         view.addSubview(bottomRightButton)
         
@@ -132,12 +132,40 @@ class GameScreenViewController: UIViewController {
         seconds -= 1     //This will decrement(count down)the seconds.
         timerLabel.text = "Time Left: 0:0\(seconds)" //This will update the label.
         if seconds == 0 {
+            showAnswers()
             timer.invalidate()
             responses.append("Incorrect")
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                 self.resetTimer()
                 self.setup()
             })
+        }
+    }
+    
+    func showAnswers() {
+        if option1 == answer {
+            topLeftButton.backgroundColor = .green
+            topRightButton.backgroundColor = .red
+            bottomLeftButton.backgroundColor = .red
+            bottomRightButton.backgroundColor = .red
+        }
+        if option2 == answer {
+            topLeftButton.backgroundColor = .red
+            topRightButton.backgroundColor = .green
+            bottomLeftButton.backgroundColor = .red
+            bottomRightButton.backgroundColor = .red
+        }
+        if option3 == answer {
+            topLeftButton.backgroundColor = .red
+            topRightButton.backgroundColor = .red
+            bottomLeftButton.backgroundColor = .green
+            bottomRightButton.backgroundColor = .red
+        }
+        if option4 == answer {
+            topLeftButton.backgroundColor = .red
+            topRightButton.backgroundColor = .red
+            bottomLeftButton.backgroundColor = .red
+            bottomRightButton.backgroundColor = .green
         }
     }
     
@@ -159,7 +187,7 @@ class GameScreenViewController: UIViewController {
             self.setup()
             self.view.isUserInteractionEnabled = true
         })
-
+        
     }
     
     @objc func checkAnswerButtonB() {
@@ -221,6 +249,7 @@ class GameScreenViewController: UIViewController {
             self.setup()
         })
     }
+
     
     func resetTimer() {
         timer.invalidate()
@@ -269,6 +298,8 @@ class GameScreenViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
     
 
 
