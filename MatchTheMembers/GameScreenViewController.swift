@@ -287,6 +287,9 @@ class GameScreenViewController: UIViewController {
         runTimer();
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        timer.invalidate()
+    }
 
     @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
         
